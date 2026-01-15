@@ -1,0 +1,13 @@
+# dependencies
+/node_modules
+
+# next
+/.next
+/out
+
+# env
+.env*
+!.env.example
+
+# misc
+.DS_Store
