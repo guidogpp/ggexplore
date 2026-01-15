@@ -1,0 +1,11 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#111111"/>
+  <text 
+    x="256" 
+    y="320" 
+    font-family="-apple-system, BlinkMacSystemFont, sans-serif" 
+    font-size="240" 
+    font-weight="600" 
+    fill="#ffffff" 
+    text-anchor="middle">GG</text>
+</svg>
