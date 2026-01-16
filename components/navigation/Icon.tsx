@@ -1,10 +1,11 @@
+import { ReactNode } from 'react'
 type IconProps = {
   name: string;
   className?: string;
 };
 
 export function Icon({ name, className = '' }: IconProps) {
-  const icons: Record<string, JSX.Element> = {
+  const icons: Record<string, ReactNode> = {
     menu: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <line x1="3" y1="6" x2="21" y2="6"/>
