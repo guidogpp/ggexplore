@@ -1,3 +1,4 @@
+
 export const dynamic = "force-dynamic";
 type ExperimentStatus = 'draft' | 'active' | 'archived';
 
@@ -7,27 +8,29 @@ import { Experiment } from '@/components/experiments/ExperimentCard';
 
 // Server Component
 export default async function ExplorePage() {
-  const supabase = createServerClient();
-  const { data, error } = await supabase
-    .from('experiments')
-    .select('*')
-    .neq('status', 'archived')
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    return (
-      <div style={{ color: 'red', padding: 32 }}>Error cargando experiments: {error.message}</div>
-    );
+  let experiments: Experiment[] = [];
+  let errorMsg = '';
+  try {
+    const supabase = createServerClient();
+    if (!supabase) throw new Error('Supabase client not configured');
+    const { data, error } = await supabase
+      .from('experiments')
+      .select('*')
+      .neq('status', 'archived')
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    experiments = (data || []).map((exp: any) => ({
+      id: exp.id,
+      name: exp.name,
+      description: exp.description || '',
+      status: ['draft', 'active', 'archived'].includes(exp.status) ? exp.status : 'draft',
+      href: `/explore/${exp.slug}`,
+    }));
+  } catch (err: any) {
+    // Log en server (solo visible en logs, no en cliente)
+    console.error('Error cargando experiments:', err);
+    errorMsg = 'No se pudieron cargar los experiments.';
   }
-
-  // Adaptar datos a tipo Experiment (agregar href y description si falta)
-  const experiments: Experiment[] = (data || []).map((exp: any) => ({
-    id: exp.id,
-    name: exp.name,
-    description: exp.description || '',
-    status: ['draft', 'active', 'archived'].includes(exp.status) ? exp.status : 'draft',
-    href: `/explore/${exp.slug}`,
-  }));
 
   return (
     <div style={{ minHeight: '100vh', background: '#fafafa', padding: '32px 0' }}>
@@ -55,7 +58,11 @@ export default async function ExplorePage() {
             Admin Experimentos
           </a>
         </div>
-        {experiments.length === 0 ? (
+        {errorMsg ? (
+          <div style={{ color: '#c00', fontSize: 18, textAlign: 'center', marginTop: 64 }}>
+            {errorMsg}
+          </div>
+        ) : experiments.length === 0 ? (
           <div style={{ color: '#888', fontSize: 18, textAlign: 'center', marginTop: 64 }}>
             No hay experiments disponibles.
           </div>

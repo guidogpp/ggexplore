@@ -2,14 +2,14 @@ import { createClient } from '@supabase/supabase-js'
 
 // Cliente para usar en Server Components y Server Actions
 export function createServerClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('❌ Supabase env vars not configured')
+    // No lanzar throw, devolver null para manejo controlado
+    console.error('❌ Supabase env vars not configured');
+    return null;
   }
-  
-  return createClient(supabaseUrl, supabaseAnonKey)
+  return createClient(supabaseUrl, supabaseAnonKey);
 }
 
 // Cliente para usar en Client Components
