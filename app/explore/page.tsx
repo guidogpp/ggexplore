@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 type ExperimentStatus = 'draft' | 'active' | 'archived';
 
 import { ExperimentGrid } from '@/components/experiments/ExperimentGrid';
