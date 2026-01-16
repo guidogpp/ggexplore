@@ -4,14 +4,34 @@ import { createServerClient } from "@/src/lib/supabase/server";
 
 export const runtime = "nodejs";
 
+function analyzeUrl(urlString: string | undefined) {
+  if (!urlString) return null;
+  return {
+    raw: urlString,
+    rawJson: JSON.stringify(urlString),
+    rawLen: urlString.length,
+    hostname: (() => {
+      try {
+        return new URL(urlString).hostname;
+      } catch {
+        return "INVALID_URL";
+      }
+    })(),
+    rawTail: urlString.slice(-10),
+    rawTailCodes: Array.from(urlString.slice(-10)).map((c) => c.charCodeAt(0)),
+  };
+}
+
 export async function GET() {
   try {
-    // Check env vars
-    const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const key = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    // Check ONLY server-side env vars
+    const url = process.env.SUPABASE_URL;
+    const key = process.env.SUPABASE_ANON_KEY;
 
-    // Log what we're using (safe to log)
-    console.log("[diag-supabase] Using URL:", url);
+    const urlAnalysis = analyzeUrl(url);
+
+    // Log for debugging
+    console.log("[diag-supabase] URL Analysis:", urlAnalysis);
     console.log("[diag-supabase] Has key:", !!key);
 
     if (!url || !key) {
@@ -21,7 +41,7 @@ export async function GET() {
           error: "Supabase env vars missing",
           hasUrl: !!url,
           hasKey: !!key,
-          url: url || "MISSING",
+          urlAnalysis,
           keyPrefix: key ? key.substring(0, 10) + "..." : "MISSING",
           rows: null,
           sample: null,
@@ -46,6 +66,7 @@ export async function GET() {
           code: error.code,
           hint: error.hint,
           details: error.details,
+          urlAnalysis,
           rows: null,
           sample: null,
         },
@@ -59,6 +80,7 @@ export async function GET() {
         error: null,
         rows: data?.length || 0,
         sample: data || [],
+        urlAnalysis,
       },
       { status: 200 }
     );
@@ -69,12 +91,16 @@ export async function GET() {
     console.error("[diag-supabase] Error:", errorMsg);
     if (errorStack) console.error("[diag-supabase] Stack:", errorStack);
 
+    const url = process.env.SUPABASE_URL;
+    const urlAnalysis = analyzeUrl(url);
+
     return NextResponse.json(
       {
         ok: false,
         error: errorMsg,
         thrown: true,
         stack: errorStack,
+        urlAnalysis,
         rows: null,
         sample: null,
       },
