@@ -40,7 +40,6 @@ export async function GET() {
           code: error.code,
           hint: error.hint,
           details: error.details,
-          status: error.status,
           rows: null,
           sample: null,
         },
