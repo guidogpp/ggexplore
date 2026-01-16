@@ -4,6 +4,7 @@ export async function GET() {
   return Response.json({
     vercelEnv: process.env.VERCEL_ENV,
     nodeEnv: process.env.NODE_ENV,
+    diagPing: process.env.DIAG_PING ?? null,
     hasPublicUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
     publicUrlLen: process.env.NEXT_PUBLIC_SUPABASE_URL?.length || 0,
     hasPublicKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
