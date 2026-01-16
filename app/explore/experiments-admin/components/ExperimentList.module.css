@@ -1,0 +1,56 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.emptyState {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  margin-top: 16px;
+}
+
+.editButton {
+  background-color: #007bff;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.archiveButton {
+  background-color: #dc3545;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+}
+
+.draft {
+  color: #6c757d;
+  font-weight: bold;
+}
+
+.active {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.archived {
+  color: #dc3545;
+  font-weight: bold;
+}

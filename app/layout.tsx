@@ -1,6 +1,7 @@
+
 import type { Metadata, Viewport } from 'next'
-// import { NavigationConditional } from '@/components/navigation/NavigationConditional'
 import './globals.css'
+import { NavigationRoot } from '@/components/navigation/NavigationRoot'
 
 export const metadata: Metadata = {
   title: 'GG explorando',
@@ -38,7 +39,10 @@ export default function RootLayout({
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         WebkitFontSmoothing: 'antialiased'
       }}>
-        {children}
+        <NavigationRoot />
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   )
