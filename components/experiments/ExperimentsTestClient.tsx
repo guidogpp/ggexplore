@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { supabase } from '../../src/lib/supabase'
-import { NavigationRoot } from '../../components/navigation/NavigationRoot'
+import { supabase } from '@/src/lib/supabase'
+import { NavigationRoot } from '@/components/navigation/NavigationRoot'
 
 export default function ExperimentsTestClient() {
   const [data, setData] = useState<any[]>([])
