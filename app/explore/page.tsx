@@ -3,13 +3,17 @@ export const dynamic = "force-dynamic";
 type ExperimentStatus = 'draft' | 'active' | 'archived';
 
 import { ExperimentGrid } from '@/components/experiments/ExperimentGrid';
+import { ExperimentGrid } from '@/components/experiments/ExperimentGrid';
 import { createServerClient } from '@/src/lib/supabase';
 import { Experiment } from '@/components/experiments/ExperimentCard';
 
-// Server Component
+export const dynamic = "force-dynamic";
+
 export default async function ExplorePage() {
   let experiments: Experiment[] = [];
   let errorMsg = '';
+
+  // Fetch inline, sin helpers
   try {
     const supabase = createServerClient();
     if (!supabase) throw new Error('Supabase client not configured');
@@ -27,7 +31,6 @@ export default async function ExplorePage() {
       href: `/explore/${exp.slug}`,
     }));
   } catch (err: any) {
-    // Log en server (solo visible en logs, no en cliente)
     console.error('Error cargando experiments:', err);
     errorMsg = 'No se pudieron cargar los experiments.';
   }
