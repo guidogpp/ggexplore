@@ -13,7 +13,6 @@ export default async function ExplorePage() {
   // Fetch inline, sin helpers
   try {
     const supabase = createServerClient();
-    if (!supabase) throw new Error('Supabase client not configured');
     const { data, error } = await supabase
       .from('experiments')
       .select('*')
@@ -29,7 +28,7 @@ export default async function ExplorePage() {
     }));
   } catch (err: any) {
     console.error('Error cargando experiments:', err);
-    errorMsg = 'No se pudieron cargar los experiments.';
+    errorMsg = err?.message || 'No se pudieron cargar los experiments.';
   }
 
   return (

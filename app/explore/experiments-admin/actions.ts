@@ -9,14 +9,19 @@ function getSupabase() {
 }
 
 export async function getExperiments() {
-	const supabase = getSupabase();
-	const { data, error } = await supabase
-		.from('experiments')
-		.select('*')
-		.neq('status', 'archived')
-		.order('created_at', { ascending: false });
-	if (error) throw error;
-	return data;
+	try {
+		const supabase = getSupabase();
+		const { data, error } = await supabase
+			.from('experiments')
+			.select('*')
+			.in('status', ['draft', 'active'])
+			.order('created_at', { ascending: false });
+		if (error) throw error;
+		return data;
+	} catch (err: any) {
+		console.error('Error cargando experiments (admin):', err);
+		throw new Error(err?.message || 'No se pudieron cargar los experiments.');
+	}
 }
 
 export async function createExperiment({ name, slug, description }) {

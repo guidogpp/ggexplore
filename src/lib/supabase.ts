@@ -5,9 +5,7 @@ export function createServerClient() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!supabaseUrl || !supabaseAnonKey) {
-    // No lanzar throw, devolver null para manejo controlado
-    console.error('❌ Supabase env vars not configured');
-    return null;
+    throw new Error('Supabase env vars missing in production');
   }
   return createClient(supabaseUrl, supabaseAnonKey);
 }
