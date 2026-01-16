@@ -22,12 +22,24 @@ function analyzeUrl(urlString: string | undefined) {
   };
 }
 
-export async function GET() {
+function checkDebugToken(req: Request) {
+  const url = new URL(req.url);
+  const token = req.headers.get("x-debug-token") || url.searchParams.get("token");
+  const expected = process.env.DEBUG_TOKEN;
+  if (!expected || token !== expected) {
+    return false;
+  }
+  return true;
+}
+
+export async function GET(req: Request) {
+  if (!checkDebugToken(req)) {
+    return NextResponse.json({ ok: false, error: "Not found" }, { status: 404 });
+  }
   try {
     // Check ONLY server-side env vars
     const url = process.env.SUPABASE_URL;
     const key = process.env.SUPABASE_ANON_KEY;
-
     const urlAnalysis = analyzeUrl(url);
 
     // Log for debugging
@@ -49,7 +61,6 @@ export async function GET() {
         { status: 500 }
       );
     }
-
     const supabase = createServerClient();
 
     // First, test connectivity with a simple query
@@ -57,7 +68,6 @@ export async function GET() {
       .from("experiments")
       .select("id, name, slug, status")
       .limit(5);
-
     if (error) {
       return NextResponse.json(
         {
@@ -73,7 +83,6 @@ export async function GET() {
         { status: 500 }
       );
     }
-
     return NextResponse.json(
       {
         ok: true,
@@ -87,13 +96,10 @@ export async function GET() {
   } catch (thrown) {
     const errorMsg = thrown instanceof Error ? thrown.message : String(thrown);
     const errorStack = thrown instanceof Error ? thrown.stack : undefined;
-
     console.error("[diag-supabase] Error:", errorMsg);
     if (errorStack) console.error("[diag-supabase] Stack:", errorStack);
-
     const url = process.env.SUPABASE_URL;
     const urlAnalysis = analyzeUrl(url);
-
     return NextResponse.json(
       {
         ok: false,

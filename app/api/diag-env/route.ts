@@ -1,6 +1,19 @@
 export const runtime = "nodejs";
 
-export async function GET() {
+function checkDebugToken(req: Request) {
+  const url = new URL(req.url);
+  const token = req.headers.get("x-debug-token") || url.searchParams.get("token");
+  const expected = process.env.DEBUG_TOKEN;
+  if (!expected || token !== expected) {
+    return false;
+  }
+  return true;
+}
+
+export async function GET(req: Request) {
+  if (!checkDebugToken(req)) {
+    return new Response("Not found", { status: 404 });
+  }
   return Response.json({
     vercelEnv: process.env.VERCEL_ENV,
     nodeEnv: process.env.NODE_ENV,
