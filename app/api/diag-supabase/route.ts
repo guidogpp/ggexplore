@@ -10,6 +10,10 @@ export async function GET() {
     const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
     const key = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
+    // Log what we're using (safe to log)
+    console.log("[diag-supabase] Using URL:", url);
+    console.log("[diag-supabase] Has key:", !!key);
+
     if (!url || !key) {
       return NextResponse.json(
         {
@@ -17,6 +21,8 @@ export async function GET() {
           error: "Supabase env vars missing",
           hasUrl: !!url,
           hasKey: !!key,
+          url: url || "MISSING",
+          keyPrefix: key ? key.substring(0, 10) + "..." : "MISSING",
           rows: null,
           sample: null,
         },
