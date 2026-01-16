@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 type ExperimentStatus = 'draft' | 'active' | 'archived';
 
 import { ExperimentGrid } from '@/components/experiments/ExperimentGrid';
-import { createServerClient } from '@/src/lib/supabase';
+import { createServerClient } from '@/src/lib/supabase/server';
 import { Experiment } from '@/components/experiments/ExperimentCard';
 
 export default async function ExplorePage() {

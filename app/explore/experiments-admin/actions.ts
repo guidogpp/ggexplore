@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from 'next/headers';
-import { createServerClient } from '@/src/lib/supabase';
+import { createServerClient } from '@/src/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 
 function getSupabase() {
