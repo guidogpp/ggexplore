@@ -17,7 +17,7 @@ export default async function ExplorePage() {
     const { data, error } = await supabase
       .from('experiments')
       .select('*')
-      .neq('status', 'archived')
+      .in('status', ['draft', 'active'])
       .order('created_at', { ascending: false });
     if (error) throw error;
     experiments = (data || []).map((exp: any) => ({
