@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { supabase } from '../../src/lib/supabase'
+import { NavigationRoot } from '../../components/navigation/NavigationRoot'
 
 export default function ExperimentsTestPage() {
   const [data, setData] = useState<any[]>([])
