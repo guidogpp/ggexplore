@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from 'next'
+// import { NavigationConditional } from '@/components/navigation/NavigationConditional'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'GG explorando',
