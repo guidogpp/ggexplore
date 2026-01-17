@@ -1,12 +1,12 @@
-'use client';
 
+
+'use client';
+import { useNavigation } from '@/hooks/useNavigation';
 import { navigationItems } from '@/lib/navigation/navigationConfig';
 import { NavItem } from './NavItem';
-import { useNavigation } from '@/hooks/useNavigation';
 
 export function BottomNav() {
   const { isActive, navigate } = useNavigation();
-
   const mobileItems = navigationItems.filter(item => item.showInMobile);
 
   return (
