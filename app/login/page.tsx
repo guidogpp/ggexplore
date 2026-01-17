@@ -16,6 +16,8 @@ export default function LoginPage() {
     // Credenciales de demo
     if (email === 'demo@ggexplore.com' && password === 'demo123') {
       localStorage.setItem('isAuthenticated', 'true')
+      // Set cookie para el middleware (demo, no seguro)
+      document.cookie = 'authToken=demo; path=/;';
       router.push('/')
     } else {
       setError('Credenciales incorrectas')

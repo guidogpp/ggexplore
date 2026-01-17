@@ -1,3 +1,27 @@
+/* Bottom drawer para navegación móvil */
+.bottom-drawer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba(0,0,0,0.25);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+.bottom-drawer__content {
+  background: #fff;
+  width: 100%;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.08);
+  padding: 24px 0 8px 0;
+  animation: slideUp 0.2s cubic-bezier(.4,0,.2,1);
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
 /* ===== RESET & BASE ===== */
 * {
   box-sizing: border-box;

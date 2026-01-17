@@ -1,21 +1,43 @@
+
 export type NavItemConfig = {
   id: string;
   label: string;
   icon: string;
   href?: string;
   action?: 'refresh' | 'menu';
-  showInMobile: boolean;
-  showInDesktop: boolean;
+  showInMobile?: boolean;
+  showInDesktop?: boolean;
+  showInDrawer?: boolean;
+  role?: 'admin' | 'dev';
 };
 
 export const navigationItems: NavItemConfig[] = [
   {
-    id: 'menu',
-    label: 'Menú',
-    icon: 'menu',
-    action: 'menu',
+    id: 'home',
+    label: 'Inicio',
+    icon: 'home',
+    href: '/',
+    showInMobile: true,
+    showInDesktop: true,
+    showInDrawer: true,
+  },
+  {
+    id: 'explore',
+    label: 'Experimentos',
+    icon: 'compass',
+    href: '/explore',
+    showInMobile: true,
+    showInDesktop: true,
+    showInDrawer: true,
+  },
+  {
+    id: 'more',
+    label: 'Más',
+    icon: 'more',
+    href: '/more',
     showInMobile: true,
     showInDesktop: false,
+    showInDrawer: false,
   },
   {
     id: 'account',
@@ -24,29 +46,26 @@ export const navigationItems: NavItemConfig[] = [
     href: '/account',
     showInMobile: true,
     showInDesktop: true,
+    showInDrawer: true,
   },
   {
-    id: 'refresh',
-    label: 'Actualizar',
-    icon: 'refresh',
-    action: 'refresh',
-    showInMobile: true,
-    showInDesktop: true,
-  },
-  {
-    id: 'explore',
-    label: 'Explorar',
-    icon: 'compass',
-    href: '/explore',
+    id: 'admin',
+    label: 'Admin',
+    icon: 'admin',
+    href: '/admin/experiments',
     showInMobile: false,
     showInDesktop: true,
+    showInDrawer: true,
+    role: 'admin',
   },
   {
-    id: 'home',
-    label: 'Inicio',
-    icon: 'home',
-    href: '/',
+    id: 'internal',
+    label: 'Herramientas',
+    icon: 'tools',
+    href: '/internal/test-write',
     showInMobile: false,
-    showInDesktop: true,
+    showInDesktop: false,
+    showInDrawer: true,
+    role: 'dev',
   },
 ];

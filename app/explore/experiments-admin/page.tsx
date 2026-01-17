@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+
 
 import ExperimentsAdmin from './components/ExperimentsAdmin';
 import { getExperiments, createExperiment, archiveExperiment, updateExperiment } from './actions';
