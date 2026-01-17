@@ -10,7 +10,7 @@ export function BottomNav() {
   const mobileItems = navigationItems.filter(item => item.showInMobile);
 
   return (
-    <nav className="bottom-nav">
+    <nav className="bottom-nav" aria-label="Navegación principal móvil">
       {mobileItems.map(item => (
         <NavItem
           key={item.id}

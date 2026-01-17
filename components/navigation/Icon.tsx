@@ -24,10 +24,10 @@ export function Icon({ name, className = '' }: IconProps) {
         <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
       </svg>
     ),
-    compass: (
+    flask: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+        <path d="M6 2h12" />
+        <path d="M9 2v6.343a7.5 7.5 0 0 1-1.636 4.686l-2.57 3.213A3 3 0 0 0 7.298 20h9.404a3 3 0 0 0 2.504-3.758l-2.57-3.213A7.5 7.5 0 0 1 15 8.343V2" />
       </svg>
     ),
     home: (

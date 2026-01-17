@@ -23,9 +23,13 @@ export const metadata: Metadata = {
   }
 }
 
+
 export const viewport: Viewport = {
   themeColor: '#111111',
-}
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
 
 export default function RootLayout({
   children,
@@ -37,10 +41,18 @@ export default function RootLayout({
       <body style={{ 
         margin: 0, 
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        WebkitFontSmoothing: 'antialiased'
+        WebkitFontSmoothing: 'antialiased',
+        background: '#fafafa',
       }}>
         <NavigationConditional>
-          <main>
+          {/* Main debe tener padding-bottom igual a la altura de la nav + safe-area */}
+          <main
+            style={{
+              minHeight: '100vh',
+              paddingBottom: 'calc(72px + env(safe-area-inset-bottom, 0px))',
+              boxSizing: 'border-box',
+            }}
+          >
             {children}
           </main>
         </NavigationConditional>

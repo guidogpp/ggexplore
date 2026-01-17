@@ -75,25 +75,68 @@ html {
 /* ===== BOTTOM NAV (MOBILE) ===== */
 .bottom-nav {
   position: fixed;
-  bottom: 0;
   left: 0;
   right: 0;
+  bottom: 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 0.5px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: env(safe-area-inset-bottom);
+  max-width: 480px;
+  margin: 0 auto 16px auto;
+  padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px)) 16px;
+  background: rgba(255,255,255,0.65);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18), 0 1.5px 8px 0 rgba(0,0,0,0.10);
+  border: 1.5px solid rgba(255,255,255,0.28);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   z-index: 1000;
+  transition: box-shadow 0.25s cubic-bezier(.4,0,.2,1), background 0.25s cubic-bezier(.4,0,.2,1);
+  overflow: visible;
+}
+
+.bottom-nav::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  border-radius: 24px;
+  pointer-events: none;
+  background: linear-gradient(120deg,rgba(255,255,255,0.18) 0%,rgba(255,255,255,0.04) 100%);
+  box-shadow: 0 1.5px 8px 0 rgba(255,255,255,0.08) inset;
+  opacity: 0.7;
+  z-index: 1;
 }
 
 .bottom-nav .nav-item {
   flex: 1;
   min-width: 0;
-  padding: 8px 12px;
+  padding: 8px 0;
   min-height: 56px;
+  position: relative;
+  z-index: 2;
+  background: none;
+}
+
+.bottom-nav .nav-item--active .nav-item__pill {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nav-item__pill {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  width: 44px;
+  height: 36px;
+  background: linear-gradient(120deg,rgba(255,255,255,0.55) 0%,rgba(255,255,255,0.18) 100%);
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+  border-radius: 18px;
+  border: 1.5px solid rgba(255,255,255,0.32);
+  opacity: 0;
+  transition: opacity 0.25s cubic-bezier(.4,0,.2,1), transform 0.25s cubic-bezier(.4,0,.2,1);
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* ===== HEADER (DESKTOP) ===== */

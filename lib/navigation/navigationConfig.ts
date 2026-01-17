@@ -24,7 +24,7 @@ export const navigationItems: NavItemConfig[] = [
   {
     id: 'explore',
     label: 'Experimentos',
-    icon: 'compass',
+    icon: 'flask',
     href: '/explore',
     showInMobile: true,
     showInDesktop: true,
